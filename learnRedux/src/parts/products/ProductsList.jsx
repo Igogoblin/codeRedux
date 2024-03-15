@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import {NewProductForm} from "./NewProductForm";
+import { NewProductForm } from "./NewProductForm";
+import SellerOfProd from "./SellerOfProd";
 
 const ProductsList = () => {
   const products = useSelector((state) => state);
@@ -8,6 +9,7 @@ const ProductsList = () => {
   const dispProducts = products.map((product) => (
     <div key={product.id} className="product-excerpt">
       <h3>{product.name}</h3>
+      <SellerOfProd sellerId={product.seller} />
       <p>{product.desc.substring(0, 100)}</p>
       <Link to={`/products/${product.id}`} className="link-btn">
         view
@@ -19,7 +21,7 @@ const ProductsList = () => {
   console.log(dispProducts);
   return (
     <div>
-      {/* <NewProductForm /> */}
+      <NewProductForm />
       <h2>Products</h2>
 
       {dispProducts}

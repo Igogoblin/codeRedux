@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
   {
@@ -23,6 +23,18 @@ const productsSlice = createSlice({
   reducers: {
     productAdded(state, action) {
       state.push(action.payload);
+    },
+    prepare(name, desc, price, amount, sellerId) {
+      return {
+        payload: {
+          id: nanoid(),
+          name,
+          desc,
+          price,
+          amount,
+          seller: sellerId,
+        },
+      };
     },
     productUpdate(state, action) {
       const { id, name, desc, price, amount } = action.payload;

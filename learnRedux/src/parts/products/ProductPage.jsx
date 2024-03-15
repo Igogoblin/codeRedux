@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProductPage = () => {
   let params = useParams();
@@ -17,6 +17,9 @@ const ProductPage = () => {
       <p>Description: {product.desc}</p>
       <p>Price: {product.price}</p>
       <p>Amount:{product.amount}</p>
+      <Link to={`/editProduct/${product.id}`} className="link-btn">
+        edit
+      </Link>
     </div>
   );
 };

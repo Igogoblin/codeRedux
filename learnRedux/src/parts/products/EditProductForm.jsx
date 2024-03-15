@@ -1,18 +1,20 @@
 import { useState } from "react";
-// import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { productAdded } from "./ProductsSlice";
+import { productAdded, productUpdate } from "./ProductsSlice";
+import { useParams, useNavigate } from "react-router-dom";
 
-const NewProductForm = () => {
-  const sellers = useSelector((state) => state.sellers);
-  console.log(sellers);
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
-  const [price, setPrice] = useState(0);
-  const [amount, setAmount] = useState(0);
-  const [sellerId, setSellerId] = useState("");
+const EditProductForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  let params = useParams();
+  const { productId } = params;
+  const product = useSelector((state) =>
+    state.find((product) => product.id === productId)
+  );
+  const [name, setName] = useState(product.name);
+  const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState("");
   const onNameChanged = (e) => setName(e.target.value);
   const onDescChanged = (e) => setDesc(e.target.value);
   const onPriceChanged = (e) => setPrice(e.target.value);
@@ -21,24 +23,27 @@ const NewProductForm = () => {
   const onSaveProductClick = () => {
     console.log("we are here");
     if (name && desc && price && amount) {
-      dispatch(productAdded(name, desc, price, amount, sellerId));
+      dispatch(
+        productUpdate({
+          id: productId,
+          name,
+          desc,
+          price,
+          amount,
+        })
+      );
+      navigate(`/products/${productId}`);
       console.log("alllllll");
     }
-    setAmount(0);
+    setAmount("");
     setDesc("");
     setName("");
-    setPrice(0);
+    setPrice("");
   };
-  const onSellerChanged = (e) => setSellerId(e.target.value);
-  const sellersList = sellers.map((seller) => (
-    <option key={seller.id} value={seller.id}>
-      {seller.name}
-    </option>
-  ));
 
   return (
     <div>
-      <h2>Add a new Product</h2>
+      <h2>Edit Product</h2>
       <form>
         <p>
           <label htmlFor="productName">Name:</label>
@@ -49,13 +54,6 @@ const NewProductForm = () => {
             value={name}
             onChange={onNameChanged}
           />
-        </p>
-        <p>
-          <label htmlFor="prodSeller">Seller:</label>
-          <select id="prodSeller" value={sellerId} onChange={onSellerChanged}>
-            <option value=""></option>
-            {sellersList}
-          </select>
         </p>
         <p>
           <label htmlFor="productDesc">Description:</label>
@@ -93,4 +91,4 @@ const NewProductForm = () => {
     </div>
   );
 };
-export default NewProductForm;
+export default EditProductForm;
