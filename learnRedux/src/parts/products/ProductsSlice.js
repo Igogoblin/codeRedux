@@ -46,6 +46,7 @@ const productsSlice = createSlice({
         desiredProduct.amount = amount;
       }
     },
+    reactionClicked(state, action) {},
   },
 });
 
