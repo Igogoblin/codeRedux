@@ -46,9 +46,16 @@ const productsSlice = createSlice({
         desiredProduct.amount = amount;
       }
     },
-    reactionClicked(state, action) {},
+    reactionClicked(state, action) {
+      const { productId, reaction } = action.payload;
+      const currentProduct = state.find((product) => product.id === productId);
+      if (currentProduct) {
+        currentProduct.reactions[reaction]++;
+      }
+    },
   },
 });
 
-export const { productAdded, productUpdate } = productsSlice.actions;
+export const { productAdded, productUpdate, reactionClicked } =
+  productsSlice.actions;
 export default productsSlice.reducer;
