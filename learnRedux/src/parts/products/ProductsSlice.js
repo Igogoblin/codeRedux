@@ -7,6 +7,11 @@ const initialState = [
     desc: "This is an amazing product",
     price: "300",
     amount: "30",
+    reactions: {
+      good: 0,
+      soso: 0,
+      bad: 0,
+    },
   },
   {
     id: "2",
@@ -14,6 +19,11 @@ const initialState = [
     desc: "This is a nice product",
     price: "700",
     amount: "12",
+    reactions: {
+      good: 0,
+      soso: 0,
+      bad: 0,
+    },
   },
 ];
 
@@ -33,6 +43,11 @@ const productsSlice = createSlice({
           price,
           amount,
           seller: sellerId,
+          reactions: {
+            good: 0,
+            soso: 0,
+            bad: 0,
+          },
         },
       };
     },

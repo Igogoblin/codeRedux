@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { NewProductForm } from "./NewProductForm";
 import SellerOfProd from "./SellerOfProd";
+import UserReaction from "./UserReactions";
 
 const ProductsList = () => {
   const products = useSelector((state) => state);
@@ -11,6 +12,7 @@ const ProductsList = () => {
       <h3>{product.name}</h3>
       <SellerOfProd sellerId={product.seller} />
       <p>{product.desc.substring(0, 100)}</p>
+      <UserReaction product={product}></UserReaction>
       <Link to={`/products/${product.id}`} className="link-btn">
         view
       </Link>
